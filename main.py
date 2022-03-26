@@ -1,117 +1,58 @@
 from Action import action
 from Event import event
+from functions import getCritical
+from functions import replaceParallel
+from functions import getAllpredecessorss
+from functions import getEvents
+from functions import GetEventsEarliest
+from functions import GetEventsLatest
+from functions import GetEventsReserve
+from functions import getPredecessorless
+from functions import printActions
+from functions import printEvents
+from functions import printCritical
 
 actions = []
 events = []
-def max(actions):
-    if len(actions) == 0:
-        return None
-    max = actions[0].duration
-    x = 0
-    while x < len(actions):
-        if actions[x].duration > max:
-            max = actions[x].duration
-        x += 1
-    return max
 
-def min(actions):
-    if len(actions) == 0:
-        return None
-    min = actions[0].duration
-    x = 0
-    while x < len(actions).duration:
-        if actions[x] > min:
-            min = actions[x].duration
-    return min
-
-
-
+#input
 #1
 actions.append(action('A'))
 actions[0].duration = 5
 #2
 actions.append(action('B'))
 actions[1].duration = 3
-actions[1].precedingActions.append(actions[0])
+actions[1].predecessorsId.append('A')
 #3
 actions.append(action('C'))
 actions[2].duration = 4
 #4
 actions.append(action('D'))
 actions[3].duration = 6
-actions[3].precedingActions.append(actions[0])
+actions[3].predecessorsId.append('A')
 #5
 actions.append(action('E'))
 actions[4].duration = 4
-actions[4].precedingActions.append(actions[3])
+actions[4].predecessorsId.append('D')
 #6
 actions.append(action('F'))
 actions[5].duration = 3
-actions[5].precedingActions.append(actions[1])
-actions[5].precedingActions.append(actions[2])
-actions[5].precedingActions.append(actions[3])
+actions[5].predecessorsId.append('B')
+actions[5].predecessorsId.append('C')
+actions[5].predecessorsId.append('D')
 
+getAllpredecessorss(actions)
+getEvents(events, actions)
 
-x = 0
-en = 0
-while x < len(actions):
-    
-    print("x=",x)
-    if len(actions[x].precedingActions) == 0:
-        events.append(event(en))
-        en +=1
-        actions[x].startingEvent = events[-1]
-        events[-1].earliest = 0
-        events[-1].latest = 0
+GetEventsEarliest(events, actions)
+GetEventsLatest(events, actions)
+GetEventsReserve(events, actions)
 
-    else:
-        found = False
-        y = 0
-        while y < len(actions[x].precedingActions):
-            print("y=", y)
-            if actions[x].precedingActions[y].endingEvent != None:
-                actions[x].startingEvent = actions[x].precedingActions[y].endingEvent
-                found = True
-                break
-            y += 1
-        if found != True:
-            events.append(event(en))
-            en +=1
-            actions[x].startingEvent = events[-1]
-        y = 0
-        
-        while y < len(actions[x].precedingActions):
-            print("y=", y)
-            print(actions[x].precedingActions[y].id)
-            actions[x].precedingActions[y].endingEvent = actions[x].startingEvent
-            y += 1
-    x += 1
+replaceParallel(events,actions)
 
+lasts = getPredecessorless(actions)
+critical = getCritical(lasts)
 
-events.append(event(en))
-
-x = 0
-while x < len(actions):
-    if actions[x].endingEvent == None:
-        actions[x].endingEvent = events[-1]
-    actions[x].endingEvent.earliest = max(actions[x].precedingActions)
-    x += 1 
-
-
-x = 0
-while x < len(actions):
-    actions[x].startingEvent.earliest = max(actions[x].precedingActions)
-    x += 1
-
-print("ACTIONS")
-x = 0
-while x < len(actions):
-    actions[x].show()
-    x+=1
-print("\nEVENTS")
-x = 0
-while x < len(events):
-    events[x].show()
-    x+=1
-
-
+printActions(actions)
+printEvents(events)
+printCritical(critical)

@@ -1,6 +1,6 @@
 class event:
     id = None
-    earliest = None
+    earliest = 0
     latest = None
     reserve = None
     def __init__(self, id):
