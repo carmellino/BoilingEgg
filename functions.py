@@ -12,7 +12,6 @@ def ispredecessors(actions, action):
         x += 1
     return False
 
-
 def getCritical(actions):
     critical = [0]
     x=0
@@ -29,7 +28,6 @@ def getCritical(actions):
                 critical.append(actions[x])
         x+=1
     return critical
-
 
 def replace(events, actions, act):
     actions.append(action(chr(ord(actions[-1].id) + 1)))
@@ -50,7 +48,6 @@ def replace(events, actions, act):
     actions[-1].startingEvent = events[-1]
     actions[-1].endingEvent = act.endingEvent
     act.endingEvent = events[-1]
-
 
 def replaceParallel(events, actions):
     pn=0
@@ -77,7 +74,6 @@ def replaceParallel(events, actions):
         if y == len(actions):
             y=0
 
-
 def getpredecessorss(actions, a):
     x=0
     while x < len(a.predecessorsId):
@@ -88,13 +84,11 @@ def getpredecessorss(actions, a):
             y+=1
         x+=1
 
-
 def getAllpredecessorss(actions):
     x=0
     while x< len(actions):
         getpredecessorss(actions,actions[x])
         x+=1
-
 
 def getEvents(events, actions):
     x = 0
@@ -129,7 +123,6 @@ def getEvents(events, actions):
             actions[x].endingEvent = events[-1]
         x += 1 
 
-
 def GetEventsEarliest(events, actions):
     x = 0
     while x < len(actions):
@@ -150,7 +143,6 @@ def GetEventsEarliest(events, actions):
                 actions[x].endingEvent.latest = actions[x].endingEvent.earliest
         x += 1
 
-
 def GetEventsLatest(events, actions):
     x = 1
     while x <= len(actions):
@@ -161,7 +153,6 @@ def GetEventsLatest(events, actions):
                 actions[len(actions) - x].startingEvent.latest = actions[len(actions) - x].endingEvent.latest - actions[len(actions) - x].duration
         x += 1
 
-
 def GetEventsReserve(events, actions):
     x = 0
     while x < len(actions):
@@ -170,16 +161,14 @@ def GetEventsReserve(events, actions):
         actions[x].startingEvent.reserve = actions[x].startingEvent.latest - actions[x].startingEvent.earliest
         x += 1
 
-
-def getPredecessorless(actions):
-    predecessorless = []
+def getNotPredecessors(actions):
+    notpredecessors = []
     x = 0
     while x < len(actions):
         if ispredecessors(actions, actions[x]) == False:
-            predecessorless.append(actions[x])
+            notpredecessors.append(actions[x])
         x += 1
-    return predecessorless
-
+    return notpredecessors
 
 def printActions(actions):
     print("\nACTIONS")
@@ -188,14 +177,12 @@ def printActions(actions):
         actions[x].show()
         x+=1
 
-
 def printEvents(events):
     print("\nEVENTS")
     x = 0
     while x < len(events):
         events[x].show()
         x+=1
-
 
 def printCritical(critical):
     print("\nCRITICAL (lenght = ",critical[0],")")

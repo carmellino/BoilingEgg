@@ -7,7 +7,7 @@ from functions import getEvents
 from functions import GetEventsEarliest
 from functions import GetEventsLatest
 from functions import GetEventsReserve
-from functions import getPredecessorless
+from functions import getNotPredecessors
 from functions import printActions
 from functions import printEvents
 from functions import printCritical
@@ -50,7 +50,7 @@ GetEventsReserve(events, actions)
 
 replaceParallel(events,actions)
 
-lasts = getPredecessorless(actions)
+lasts = getNotPredecessors(actions)
 critical = getCritical(lasts)
 
 printActions(actions)
