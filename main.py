@@ -1,58 +1,48 @@
-from Action import action
-from Event import event
-from functions import getCritical
-from functions import replaceParallel
-from functions import getAllpredecessorss
-from functions import getEvents
-from functions import GetEventsEarliest
-from functions import GetEventsLatest
-from functions import GetEventsReserve
-from functions import getNotPredecessors
-from functions import printActions
-from functions import printEvents
-from functions import printCritical
+import tkinter as tk
 
-actions = []
-events = []
+import cpm
 
-#input
-#1
-actions.append(action('A'))
-actions[0].duration = 5
-#2
-actions.append(action('B'))
-actions[1].duration = 3
-actions[1].predecessorsId.append('A')
-#3
-actions.append(action('C'))
-actions[2].duration = 4
-#4
-actions.append(action('D'))
-actions[3].duration = 6
-actions[3].predecessorsId.append('A')
-#5
-actions.append(action('E'))
-actions[4].duration = 4
-actions[4].predecessorsId.append('D')
-#6
-actions.append(action('F'))
-actions[5].duration = 3
-actions[5].predecessorsId.append('B')
-actions[5].predecessorsId.append('C')
-actions[5].predecessorsId.append('D')
+counter = 0
 
-getAllpredecessorss(actions)
-getEvents(events, actions)
+def get_data():
+    print('xd')
+    id = enter_one.get()
+    time = enter_two.get()
+    predo = enter_three.get()
+    print(id)
+    print(time)
+    print(predo)
+    cpm.process_data(id, time, predo)
+    enter_one.delete(0, tk.END)
+    enter_two.delete(0, tk.END)
+    enter_three.delete(0, tk.END)
+    # main.counter += 1
 
-GetEventsEarliest(events, actions)
-GetEventsLatest(events, actions)
-GetEventsReserve(events, actions)
 
-replaceParallel(events,actions)
+if __name__ == '__main__':
 
-lasts = getNotPredecessors(actions)
-critical = getCritical(lasts)
+    window = tk.Tk()
 
-printActions(actions)
-printEvents(events)
-printCritical(critical)
+    id_label = tk.Label(text="ID")
+    id_label.pack()
+    enter_one = tk.Entry()
+    enter_one.pack()
+
+    time_label = tk.Label(text="Czas trwania")
+    time_label.pack()
+    enter_two = tk.Entry()
+    enter_two.pack()
+
+    predocesors_label = tk.Label(text="Poprzednicy")
+    predocesors_label.pack()
+    enter_three = tk.Entry()
+    enter_three.pack()
+
+    add_button = tk.Button(text="Add", command=get_data)
+    # add_button.bind(get_data(enter_one.get(), enter_two.get(), enter_three.get()))
+    add_button.pack()
+
+    rdy_button = tk.Button(text="Start", command=cpm.logic)
+    rdy_button.pack()
+
+    window.mainloop()
