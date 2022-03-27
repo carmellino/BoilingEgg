@@ -13,6 +13,7 @@ from Event import event
 # from functions import printEvents
 # from functions import printCritical
 from functions import *
+#kurwa jaki ty mądry jesteś <3
 
 actions = []
 events = []
@@ -24,14 +25,19 @@ def process_data(id, time, predo):
     #  Cast data to make them operable by the rest of algorithm
 
     actions.append(action(id))
-    actions[main.counter].duration = time
-
+    actions[-1].duration = int(time)
+    '''
     str = predo.split(',')
 
     for x in str:
         actions[main.counter].predecessorsId.append(str)
     main.counter += 1
-
+    '''
+    str = predo
+    x=0
+    while x<len(str):
+        actions[-1].predecessorsId.append(str[x])
+        x+=1
 
 def hardcode_data():
     # input
@@ -63,8 +69,9 @@ def hardcode_data():
 
 def logic():
     getAllpredecessorss(actions)
+    #printActions(actions)
     getEvents(events, actions)
-
+    printEvents(events)
     GetEventsEarliest(events, actions)
     GetEventsLatest(events, actions)
     GetEventsReserve(events, actions)
