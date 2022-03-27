@@ -1,6 +1,6 @@
-import main
-from Action import action
-from Event import event
+# import main
+# from Action import action
+# from Event import event
 # from functions import getCritical
 # from functions import replaceParallel
 # from functions import getAllpredecessorss
