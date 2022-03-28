@@ -61,18 +61,18 @@ def replaceParallel(events, actions):
                     replace(events, actions, actions[x].predecessors[z])
                 z+=1
             y+=1
-        if ispredecessors(actions, actions[x]) == False:
-            pn+=1
         x+=1
-    print("PN",pn)
-    y=0
-    while pn > 1:
-        if ispredecessors(actions, actions[y]) == False:
-            replace(events, actions, actions[y])
-            pn-=1
-        y+=1
-        if y == len(actions):
-            y=0
+
+    np = getNotPredecessors(actions)
+    x=0
+    while x<len(np):
+        y=0
+        while y+1 <len(np):
+            if x!=y:
+                if np[x].startingEvent == np[y].startingEvent:
+                    replace(events,actions,np[x])
+            y+=1
+        x+=1
 
 def getpredecessorss(actions, a):
     x=0
