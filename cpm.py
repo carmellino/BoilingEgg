@@ -1,6 +1,7 @@
 # import main
 # from Action import action
 # from Event import event
+from Graph import DrawGraph
 # from functions import getCritical
 # from functions import replaceParallel
 # from functions import getAllpredecessorss
@@ -12,6 +13,7 @@
 # from functions import printActions
 # from functions import printEvents
 # from functions import printCritical
+from Graph import DrawGraph
 from functions import *
 #kurwa jaki ty mądry jesteś <3
 
@@ -84,3 +86,5 @@ def logic():
     printActions(actions)
     printEvents(events)
     printCritical(critical)
+
+    DrawGraph.draw(actions)
