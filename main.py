@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk, Image
 
 import cpm
 
@@ -21,6 +22,12 @@ def get_data():
     table.insert(parent='', index='end', text='',
                  values=(id, time, predo))
     # counter += 1
+
+
+def start_logic():
+    cpm.logic()
+    img = ImageTk.PhotoImage(Image.open("./test-output/Digraph.gv.png"))
+    img.grid(row=3, column=4)
 
 
 if __name__ == '__main__':
@@ -48,7 +55,7 @@ if __name__ == '__main__':
     # add_button.bind(get_data(enter_one.get(), enter_two.get(), enter_three.get()))
     add_button.grid(row=0, column=4, pady=5, sticky=tk.NS)
 
-    rdy_button = tk.Button(text="Start", command=cpm.logic, width=25)
+    rdy_button = tk.Button(text="Start", command=start_logic, width=25)
     rdy_button.grid(row=1, column=4, padx=5, sticky=tk.NS)
 
     table = ttk.Treeview()
