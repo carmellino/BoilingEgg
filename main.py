@@ -25,16 +25,18 @@ def get_data():
 
 
 def start_logic():
+    global img
     cpm.logic()
     img = ImageTk.PhotoImage(Image.open("./test-output/Digraph.gv.png"))
-    img.grid(row=3, column=4)
-
+    Label = tk.Label(frame, image=img)
+    Label.pack()
 
 if __name__ == '__main__':
 
     window = tk.Tk()
     window.title("CPM")
-    # window.grid()
+    frame = tk.Frame(window, width=200, height=200)
+    frame.grid(row=3, column=4)
 
     id_label = tk.Label(text="ID")
     id_label.grid(row=0, column=0)
