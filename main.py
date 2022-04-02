@@ -33,7 +33,7 @@ def create_second_table():
         table2.insert(parent='', index='end', text='',
                     values=(id, ear, lat, res))
 
-    table2.grid(row=0, columnspan=4, sticky=tk.E + tk.S + tk.N)
+    table2.grid(row=1, column=0, columnspan=3, sticky=tk.W + tk.N)
 
 
 def get_data():
@@ -57,9 +57,11 @@ def start_logic():
     global img
     cpm.logic()
     create_second_table()
+    title = tk.Label(frame_two, text="Activity table")
+    title.grid(row=0,column=2)
     img = ImageTk.PhotoImage(Image.open("./test-output/Digraph.gv.png"))
-    Label = tk.Label(frame, image=img)
-    Label.grid(column=5,rowspan=6)
+    photo = tk.Label(frame_two, image=img)
+    photo.grid(column=3, row=1)
     start_frame.pack_forget()
     frame_two.pack()
 
@@ -110,10 +112,10 @@ if __name__ == '__main__':
     table.heading("Time", text='Time')
     table.heading("Predocesors", text='Predocesors')
 
-    table.grid(row=3, columnspan=4,sticky=tk.W+tk.E+tk.S)
+    table.grid(row=3, columnspan=4, sticky=tk.W+tk.E+tk.S)
 
     frame_two = tk.Frame(window)
-    frame = tk.Frame(frame_two, width=200, height=200)
-    frame.grid(row=3, column=4)
+    # frame = tk.Frame(frame_two, width=200, height=200)
+    # frame.grid(row=3, column=4)
 
     window.mainloop()
