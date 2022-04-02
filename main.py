@@ -3,8 +3,17 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 
 import cpm
+import gantt
 
 counter = 0
+
+
+class activ:
+
+    def __init__(self, i,t,p):
+        self.id = i
+        self.time = t
+        self.predo = p
 
 
 def create_second_table():
@@ -33,7 +42,7 @@ def create_second_table():
         table2.insert(parent='', index='end', text='',
                     values=(id, ear, lat, res))
 
-    table2.grid(row=1, column=0, columnspan=3, sticky=tk.W + tk.N)
+    table2.grid(row=3, column=0, sticky=tk.W + tk.N)
 
 
 def get_data():
@@ -50,24 +59,63 @@ def get_data():
     enter_three.delete(0, tk.END)
     table.insert(parent='', index='end', text='',
                  values=(id, time, predo))
+    data.append(activ(id,time,predo))
+
     # counter += 1
+
+def popup_gunt():
+    global gunt
+    gun = tk.Toplevel()
+    gunt = ImageTk.PhotoImage(Image.open("./graphs/gnat.png"))
+    gant = tk.Label(gun, image=gunt)
+    gant.grid(column=0, row=0)
+    button_close = tk.Button(gun, text="close", command=gun.destroy)
+    button_close.grid(row=2, columnspan=4)
+
+
+def draw_activity_table():
+    table3 = ttk.Treeview(frame_two)
+
+    table3['columns'] = ('id', 'Time', 'Predocesors')
+
+    table3.column("#0", width=0)
+    table3.column("id", width=40)
+    table3.column("Time", width=80)
+    table3.column("Predocesors", width=80)
+
+    table3.heading("#0", text='')
+    table3.heading("id", text='Event ID')
+    table3.heading("Time", text='Time')
+    table3.heading("Predocesors", text='Predocesors')
+    for x in data:
+        table3.insert(parent='', index='end', text='',
+                     values=(x.id, x.time, x.predo))
+    tit = tk.Label(frame_two, text="Czynnosci")
+    tit.grid(row=4, column=0)
+    table3.grid(row=5, column=0)
+
 
 
 def start_logic():
     global img
     cpm.logic()
     create_second_table()
-    title = tk.Label(frame_two, text="Activity table")
-    title.grid(row=0,column=2)
+    title = tk.Label(frame_two, text="Event table")
+    title.grid(row=2,column=0)
     img = ImageTk.PhotoImage(Image.open("./test-output/Digraph.gv.png"))
     photo = tk.Label(frame_two, image=img)
-    photo.grid(column=3, row=1)
+    photo.grid(column=3, rowspan=5, row=2, sticky=tk.N)
+    gant_button = tk.Button(frame_two, text="gantt graph", command=popup_gunt,width=60)
+    gant_button.grid(columnspan=3, row=1)
     start_frame.pack_forget()
+    draw_activity_table()
     frame_two.pack()
+    gantt.draw()
 
 
 if __name__ == '__main__':
-
+    global data
+    data = list()
     window = tk.Tk()
     window.title("CPM")
     window.geometry("800x800")
@@ -115,7 +163,5 @@ if __name__ == '__main__':
     table.grid(row=3, columnspan=4, sticky=tk.W+tk.E+tk.S)
 
     frame_two = tk.Frame(window)
-    # frame = tk.Frame(frame_two, width=200, height=200)
-    # frame.grid(row=3, column=4)
 
     window.mainloop()
