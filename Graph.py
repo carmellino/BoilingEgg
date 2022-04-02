@@ -1,6 +1,8 @@
 import graphviz
 from Action import action
 
+import cpm
+
 class DrawGraph:
 
     def draw(actions):
@@ -15,11 +17,14 @@ class DrawGraph:
             y+=1
         
         for x in actions:
-            #action[x].startingEvent.id -> action[x].endingEvent.id ??
-            graph.edge(str(x.startingEvent.id),str(x.endingEvent.id), str(x.id))
+            if x in cpm.critical:
+                graph.edge(str(x.startingEvent.id), str(x.endingEvent.id), str(x.id), color='red')
+            else:
+                #action[x].startingEvent.id -> action[x].endingEvent.id ??
+                graph.edge(str(x.startingEvent.id),str(x.endingEvent.id), str(x.id))
         print(graph.source)
 
 
         
-        graph.render(directory='./test-output', view=True)
+        graph.render(directory='./test-output', view=False)
         # label edges

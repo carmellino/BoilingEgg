@@ -15,6 +15,7 @@ def ispredecessors(actions, action):
 def getCritical(actions):
     critical = [0]
     x=0
+    #brzydka sol macz petelka <3
     while x<len(actions):
         if len(actions[x].predecessors) == 0:
             if critical[0] < actions[x].duration:

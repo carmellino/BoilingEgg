@@ -79,7 +79,7 @@ def logic():
     GetEventsReserve(events, actions)
 
     replaceParallel(events, actions)
-
+    global critical
     lasts = getNotPredecessors(actions)
     critical = getCritical(lasts)
 
