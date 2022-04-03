@@ -93,12 +93,12 @@ def getAllpredecessorss(actions):
 
 def getEvents(events, actions):
     x = 0
-    en = 0
+    en = 1
+    #event startowy
+    events.append(event(0))
     while x < len(actions):
         if len(actions[x].predecessors) == 0:
-            events.append(event(en))
-            en +=1
-            actions[x].startingEvent = events[-1]
+            actions[x].startingEvent = events[0]
         else:
             found = False
             y = 0
