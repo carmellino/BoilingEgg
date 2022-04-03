@@ -58,8 +58,9 @@ def replaceParallel(events, actions):
         while y+1 < len(actions[x].predecessors):
             z=y+1
             while z<len(actions[x].predecessors):
-                if actions[x].predecessors[y].startingEvent == actions[x].predecessors[z].startingEvent:
-                    replace(events, actions, actions[x].predecessors[z])
+                if actions[x].predecessors[y].startingEvent.id !=0:
+                    if actions[x].predecessors[y].startingEvent == actions[x].predecessors[z].startingEvent:
+                        replace(events, actions, actions[x].predecessors[z])
                 z+=1
             y+=1
         x+=1
