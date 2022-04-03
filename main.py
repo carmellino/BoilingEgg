@@ -68,10 +68,12 @@ def get_data():
         error_window(enter_two, 'Time have to be integer or float')
         return
     predo = enter_three.get()
-    #if len(predo)>0:
-    #    if predo not in ids:
-    #        error_window(enter_three, 'Predo must exists first')
-    #        return
+    if len(predo)>0:
+        predo_check = predo.split(',')
+        for h in predo_check:
+            if h not in ids:
+                error_window(enter_three, 'Predo must exists first')
+                return
     print(id)
     print(time)
     print(predo)
