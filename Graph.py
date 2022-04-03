@@ -1,30 +1,34 @@
+from cProfile import label
+from logging import critical
+from turtle import color
 import graphviz
 from Action import action
 
 import cpm
 
 class DrawGraph:
-
     def draw(actions):
         graph = graphviz.Digraph(format='png')
+        graph.attr(rankdir = 'LR')
         graph.node_attr['shape']='circle'
-        # generate path
-        y=1
-        for x in actions:
-            start = str(x.id)
-            
-            graph.node(str(y),str(y))
-            y+=1
         
         for x in actions:
             if x in cpm.critical:
-                graph.edge(str(x.startingEvent.id), str(x.endingEvent.id), str(x.id), color='red')
+                graph.edge(str(x.startingEvent.id), str(x.endingEvent.id), str(x.id + " " + str(x.duration)), color='red')
             else:
-                #action[x].startingEvent.id -> action[x].endingEvent.id ??
-                graph.edge(str(x.startingEvent.id),str(x.endingEvent.id), str(x.id))
-        print(graph.source)
-
+                graph.edge(str(x.startingEvent.id),str(x.endingEvent.id), str(x.id + " " + str(x.duration)))
 
         
-        graph.render(directory='./test-output', view=False)
-        # label edges
+        label = "Ścieżka Krytyczna:"        
+        for x in actions:
+            if x in cpm.critical:
+                duration = x.duration
+                label=label+" "+(str(x.id))
+                
+        label += "  Czas trwania: "+ str(cpm.critical[0])
+        graph.attr(label=label)
+        graph.attr(fontsize='16', fontcolor='red')
+        graph.unflatten
+
+        print(graph.source)    
+        graph.render(directory='./graphs', view=False)

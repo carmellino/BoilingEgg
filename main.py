@@ -102,7 +102,7 @@ def start_logic():
     create_second_table()
     title = tk.Label(frame_two, text="Event table")
     title.grid(row=2,column=0)
-    img = ImageTk.PhotoImage(Image.open("./test-output/Digraph.gv.png"))
+    img = ImageTk.PhotoImage(Image.open("./graphs/Digraph.gv.png"))
     photo = tk.Label(frame_two, image=img)
     photo.grid(column=3, rowspan=5, row=2, sticky=tk.N)
     gant_button = tk.Button(frame_two, text="gantt graph", command=popup_gunt,width=60)
