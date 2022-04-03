@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image
+from fastnumbers import isfloat
 
 import cpm
 import gantt
@@ -45,11 +46,32 @@ def create_second_table():
     table2.grid(row=3, column=0, sticky=tk.W + tk.N)
 
 
+def error_window(failed, tex):
+    error = tk.Toplevel()
+    window.eval(f'tk::PlaceWindow {str(error)} center')
+    info = tk.Label(error, text=tex,font=("Arial",25, "bold"))
+    failed.delete(0, 'end')
+    info.pack()
+
+
+ids = []
+
+
 def get_data():
     print('xd')
     id = enter_one.get()
+    if len(id) == 0 or id in ids:
+        error_window(enter_one, 'id cannot be empty and must be unique')
+        return
     time = enter_two.get()
+    if len(time) == 0 or not isfloat(time):
+        error_window(enter_two, 'Time have to be integer or float')
+        return
     predo = enter_three.get()
+    if len(predo)>0:
+        if predo not in ids:
+            error_window(enter_three, 'Predo must exists first')
+            return
     print(id)
     print(time)
     print(predo)
@@ -60,6 +82,7 @@ def get_data():
     table.insert(parent='', index='end', text='',
                  values=(id, time, predo))
     data.append(activ(id,time,predo))
+    ids.append(id)
 
     # counter += 1
 
@@ -118,7 +141,8 @@ if __name__ == '__main__':
     data = list()
     window = tk.Tk()
     window.title("CPM")
-    window.geometry("800x800")
+    window.geometry("800x600")
+    # window.eval('tk::PlaceWindow . center')
 
 
     start_frame = tk.Frame(window, width=800, height=800)

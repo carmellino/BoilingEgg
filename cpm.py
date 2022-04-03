@@ -17,6 +17,8 @@ from Graph import DrawGraph
 from functions import *
 #kurwa jaki ty mądry jesteś <3
 
+
+global events
 actions = []
 events = []
 

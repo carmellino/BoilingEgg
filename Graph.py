@@ -9,12 +9,12 @@ class DrawGraph:
         graph = graphviz.Digraph(format='png')
         graph.node_attr['shape']='circle'
         # generate path
-        y=1
-        for x in actions:
-            start = str(x.id)
-            
-            graph.node(str(y),str(y))
-            y+=1
+        # y=1
+        # for x in cpm.events:
+        #     start = str(x.id)
+        #
+        #     graph.node(str(y), str(y))
+        #     y += 1
         
         for x in actions:
             if x in cpm.critical:
