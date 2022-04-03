@@ -11,6 +11,7 @@ class DrawGraph:
         graph = graphviz.Digraph(format='png')
         graph.attr(rankdir = 'LR')
         graph.node_attr['shape']='circle'
+
         
         for x in actions:
             if x in cpm.critical:
